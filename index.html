@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pribadi</title>
+    <style>
+        :root {
+            --primary: #1a237e;
+            --primary-light: #534bae;
+            --secondary: #ff6d00;
+            --dark: #121212;
+            --light: #f5f5f5;
+            --gray: #757575;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 18, 18, 0.7), rgba(18, 18, 18, 0.9)), 
+                        url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/06d84a08-0c44-4e91-bcf7-c7de48541528.png') no-repeat center center/cover;
+            z-index: -1;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-light);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(117, 117, 117, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--light);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 0;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            color: var(--secondary);
+        }
+
+        .hero-text p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .profile-image img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 5px solid var(--primary);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--light);
+            border-color: var(--light);
+        }
+
+        .btn:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-light);
+        }
+
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* About Section */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background-color: var(--secondary);
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--gray);
+        }
+
+        .skills {
+            flex: 1;
+        }
+
+        .skill-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-bar {
+            height: 10px;
+            background-color: rgba(117, 117, 117, 0.2);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .skill-level {
+            height: 100%;
+            background-color: var(--secondary);
+            border-radius: 5px;
+        }
+
+        /* Portfolio Section */
+        .portfolio-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            background-color: rgba(26, 35, 126, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .portfolio-img img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .portfolio-info {
+            padding: 1.5rem;
+        }
+
+        .portfolio-info h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-info p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            flex: 1;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .contact-form {
+            flex: 1;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(117, 117, 117, 0.3);
+            border-radius: 4px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(117, 117, 117, 0.2);
+            color: var(--gray);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(26, 35, 126, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content,
+            .about-content,
+            .contact-content {
+                flex-direction: column;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile-image {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Profil<span>Ku</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang</a></li>
+                    <li><a href="#portfolio">Portofolio</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Triaman Jaya Giawa</span></h1>
+                    <p>Hallo, selamat datang di website saya, saya senang anda telah berkunjung di profil saya, nah saya adalah mahasiswa dari Uniraya khususnya dari Prodi Sistem Informasi (IT) .</p>
+                    <div class="btn-container">
+                    </div>
+                </div>
+                <div class="profile-image">
+                    <img src="fotoku.jpg" alt="Foto Profil">
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <h2 class="section-title">Tentang Saya</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Biodataku</h3>
+                    <p>Saya lulusan SMA negeri 1 Umbunasi, alasan saya masuk ke prodi (SI) karena Sistem Informasi memadukan ilmu komputer dengan manajemen dan bisnis. Cocok untuk saya yang ingin memahami teknologi tapi juga tertarik dengan proses bisnis, manajemen data, dan pengambilan keputusan berbasis teknologi..</p>
+                    <p>"Jangan takut salah saat ngoding. Setiap error adalah guru yang sedang mengajarkan sesuatu.""Programmer hebat bukan yang selalu benar, tapi yang tahu bagaimana memperbaiki kesalahan.".</p>
+                </div>
+                <div class="skills">
+                    <h3>Keterampilan Saya</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Codingan</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 95%;"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span>Desainer</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section">
+            <h2 class="section-title">Portofolio</h2>
+            <div class="portfolio-items">
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <img src="proyek1.jpg" alt="Dashboard admin modern dengan tampilan minimalis, grafik data, dan panel navigasi" />
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Proyek di Ujian Akhir Semester</h3>
+                        <p>ini adalah pekerjaan saya di akhir semester ini dengan membuat web personal.</p>
+                        <a href="#" class="btn">Coding</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <img src="proyek2.jpg" alt="Tampilan mobile e-commerce dengan produk fashion pria" />
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Hasil dari proyek saya</h3>
+                        <p>Ini adalah hasil proyek saya dalam akhir semester ini tentang pembuatan website.</p>
+                        <a href="#" class="btn">Hasil</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <img src="proyek3.jpg" alt="Antarmuka aplikasi kesehatan dengan grafik kebugaran dan statistik" />
+                    </div>
+                    <div class="portfolio-info">
+                        <h3>Foto di Akhir Semester</h3>
+                        <p>Ini adalah foto kami bersama dosen dan teman teman saya di akhir semester ini.</p>
+                        <a href="#" class="btn">Foto bersama</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section">
+            <h2 class="section-title">Hubungi Saya</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Mari Bersama Saya</h3>
+                    <div class="contact-item">
+                        <div class="contact-icon">@</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>jtriamangiawa@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">T</div>
+                        <div>
+                            <h4>Telepon</h4>
+                            <p>+62 82353218745</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">L</div>
+                        <div>
+                            <h4>Lokasi</h4>
+                            <p>Teluk dalam, Indonesia</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Nama Lengkap</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subjek</label>
+                            <input type="text" id="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Kirim Pesan</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2025 Nias, Indonesia.</p>
+            <div class="social-links">
+                <a href="https://www.tiktok.com/@trigiawakece028?_t=ZS-8xdZvE7OWmu&_r=1" title="Tiktok">Tk</a>
+				
+                <a href="https://www.facebook.com/share/19PL5AZR4p/" title="Facebook">Fb</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Efek animasi scroll halus
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Validasi form
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+                
+                if (name && email && message) {
+                    alert('Terima kasih! Pesan Anda telah berhasil dikirim.');
+                    form.reset();
+                } else {
+                    alert('Mohon lengkapi semua kolom yang diperlukan.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
